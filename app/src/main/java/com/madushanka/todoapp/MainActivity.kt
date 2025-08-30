@@ -10,7 +10,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.madushanka.rehersal.presentation.screen.TodoListScreen
+import com.madushanka.todoapp.presentation.screen.TodoListScreen
 import com.madushanka.todoapp.presentation.navigation.SplashScreen
 import com.madushanka.todoapp.presentation.navigation.TodoListScreen
 import com.madushanka.todoapp.presentation.screen.SplashScreen
