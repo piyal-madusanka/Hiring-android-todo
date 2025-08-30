@@ -79,7 +79,7 @@ fun TodoListScreen(
                 )
 
                 is TodoState.Error -> ErrorMessage(
-                    message = (todoState).errorMessage, onEvent = onEvent
+                    message = (todoState).errorMessage
                 )
             }
 

@@ -138,16 +138,7 @@ fun AddTodoScreen(
             }
             when (addTodoState) {
                 is AddTodoSate.Error -> ErrorMessage(
-                    message = (addTodoState).errorMessage, onEvent = {
-                        if (title.value.isNotEmpty() && description.value.isNotEmpty()) {
-                            onEvent(
-                                AddTodo(
-                                    title = title.value,
-                                    description = description.value
-                                )
-                            )
-                        }
-                    }
+                    message = (addTodoState).errorMessage
                 )
 
                 AddTodoSate.Loading -> LoadingIndicator(modifier = Modifier.fillMaxSize())
