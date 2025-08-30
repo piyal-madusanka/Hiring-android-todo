@@ -4,17 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.madushanka.rehersal.presentation.screen.TodoListScreen
 import com.madushanka.todoapp.presentation.navigation.SplashScreen
 import com.madushanka.todoapp.presentation.navigation.TodoListScreen
 import com.madushanka.todoapp.presentation.screen.SplashScreen
-import com.madushanka.todoapp.presentation.screen.TodoListScreen
 import com.madushanka.todoapp.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,7 +34,11 @@ class MainActivity : ComponentActivity() {
                     }
                     composable<TodoListScreen> {
                         TodoListScreen(
-                            navigateToTodoDetails = { index, todo -> }
+                            navigateToTodoDetails = { index, todo -> },
+                            onEvent = { todoEvent -> },
+                            todoState = com.madushanka.todoapp.presentation.state.TodoState.Success(
+                                emptyList()
+                            )
                         )
 
                     }
