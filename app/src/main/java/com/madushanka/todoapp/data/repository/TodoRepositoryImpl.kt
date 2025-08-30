@@ -54,5 +54,27 @@ class TodoRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun deleteTodo(id: Int): Flow<Result<Unit>> {
+        return flow {
+            try {
+                localDataSource.deleteTodo(id)
+                emit(Result.success(Unit))
+            } catch (e: LocalDataSourceException) {
+                emit(Result.failure(Exception("failed to delete todo")))
+            }
+        }
+    }
+
+    override fun editTodo(id: Int, title: String, description: String): Flow<Result<Unit>> {
+        return flow {
+            try {
+                localDataSource.editTodo(id, title, description)
+                emit(Result.success(Unit))
+            } catch (e: LocalDataSourceException) {
+                emit(Result.failure(Exception("failed to update todo")))
+            }
+        }
+    }
+
 
 }

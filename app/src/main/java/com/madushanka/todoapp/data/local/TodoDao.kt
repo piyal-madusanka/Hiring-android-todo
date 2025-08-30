@@ -20,4 +20,10 @@ interface TodoDao {
 
     @Query("UPDATE cached_todo SET isCompleted = :checked WHERE id = :id")
     fun markTodoAsCompleted(id: Int,checked: Int)
+
+    @Query("DELETE FROM cached_todo WHERE id = :id")
+    fun deleteTodo(id: Int)
+
+    @Query("UPDATE cached_todo SET title = :title, description = :description WHERE id = :id")
+    fun editTodo(id: Int, title: String, description: String)
 }

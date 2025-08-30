@@ -38,4 +38,12 @@ class TodoLocalDataSourceImpl @Inject constructor(
         }
 
     }
+
+    override fun deleteTodo(id: Int) {
+        todoDao.deleteTodo(id)
+    }
+
+    override fun editTodo(id: Int, title: String, description: String) {
+        todoDao.editTodo(id, title, description)
+    }
 }

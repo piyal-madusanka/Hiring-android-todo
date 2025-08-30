@@ -41,4 +41,23 @@ class AddEditTodoViewModel @Inject constructor(
         }
     }
 
+    fun updateTodo(id: Int, title: String, description: String) {
+        viewModelScope.launch(coroutineDispatcher) {
+            addTodosUseCase.updateTodo(id, title, description).collect { result ->
+                result.fold(
+                    onSuccess = {
+                        _addTodoState.update {
+                            AddTodoSate.Success
+                        }
+                    },
+                    onFailure = { error ->
+                        _addTodoState.update {
+                            AddTodoSate.Error(error.message ?: "An unexpected error occurred")
+                        }
+                    }
+                )
+            }
+        }
+    }
+
 }

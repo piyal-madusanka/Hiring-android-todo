@@ -11,4 +11,8 @@ interface TodoLocalDataSource {
     fun getTodos(): Flow<List<Todo>>
 
     fun markTodoAsCompleted(id: Int, checked: Boolean)
+
+    fun deleteTodo(id: Int)
+
+    fun editTodo(id: Int, title: String, description: String)
 }

@@ -11,4 +11,8 @@ interface TodoRepository {
     suspend fun addTodo(title: String,description: String): Flow<Result<Unit>>
 
     suspend fun markTodoAsCompleted(id: Int, checked: Boolean): Flow<Result<Unit>>
+
+    fun deleteTodo(id: Int):Flow<Result<Unit>>
+
+    fun editTodo(id: Int, title: String, description: String):Flow<Result<Unit>>
 }

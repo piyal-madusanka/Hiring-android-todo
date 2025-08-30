@@ -63,5 +63,22 @@ class TodoViewModel @Inject constructor(
         }
     }
 
+    fun deleteTodo(id: Int) {
+        viewModelScope.launch(coroutineDispatcher) {
+            getTodosUseCase.deleteTodo(id).collect { result ->
+                result.fold(
+                    onSuccess = {
+                        fetchTodos()
+                    },
+                    onFailure = { error ->
+                        _todoState.update {
+                            TodoState.Error(error.message ?: "An unexpected error occurred")
+                        }
+                    }
+                )
+            }
+        }
+    }
+
 
 }

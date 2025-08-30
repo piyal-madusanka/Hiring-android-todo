@@ -25,4 +25,12 @@ class GetTodosUseCase @Inject constructor(
                 onFailure = { error -> Result.failure(error) }
             )
         }
+
+    fun deleteTodo(id: Int):Flow<Result<Unit>> =
+        repository.deleteTodo(id).map { result ->
+            result.fold(
+                onSuccess = { Result.success(Unit) },
+                onFailure = { error -> Result.failure(error) }
+            )
+        }
 }
