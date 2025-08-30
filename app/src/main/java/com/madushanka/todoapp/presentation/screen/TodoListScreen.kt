@@ -69,12 +69,12 @@ fun TodoListScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = padding.calculateBottomPadding())
+                .padding(bottom = padding.calculateBottomPadding(),top = padding.calculateTopPadding())
         ) {
             when (todoState) {
                 is TodoState.Loading -> LoadingIndicator(modifier = Modifier.fillMaxSize())
                 is TodoState.Success -> TodoList(
-                    todos = (todoState).todos,
+                    todos = todoState.todos,
                     onEvent = onEvent
                 )
 
@@ -97,6 +97,7 @@ fun TodoList(
     val listState = rememberLazyListState()
 
     LazyColumn(state = listState) {
+
         itemsIndexed(todos) { index, todo ->
             TodoItem(
                 todo = todo,
