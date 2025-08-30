@@ -50,7 +50,7 @@ fun TodoItem(
         ),
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
         ) {
             Row(
                 modifier = Modifier.padding(

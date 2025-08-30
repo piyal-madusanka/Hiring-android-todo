@@ -101,6 +101,7 @@ fun CustomEditText(
             unfocusedContainerColor = Color.White,
         ),
         singleLine = singleLine,
+        maxLines = if (singleLine) 1 else 4,
         enabled = enabled,
         keyboardActions = keyboardActions,
         keyboardOptions = keyboardOptions
