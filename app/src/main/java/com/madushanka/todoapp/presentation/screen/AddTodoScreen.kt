@@ -119,10 +119,10 @@ fun AddTodoScreen(
                             }
                         },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.LightGray,
-                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                            disabledContainerColor = Color.Gray,
-                            disabledContentColor = Color.DarkGray,
+                            containerColor = Color.Gray,
+                            contentColor = Color.DarkGray,
+                            disabledContainerColor = Color.LightGray,
+                            disabledContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                         ),
                     ) {
                         Text(
