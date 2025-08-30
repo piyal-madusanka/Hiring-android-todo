@@ -24,7 +24,7 @@ class AddEditTodoViewModel @Inject constructor(
 
     fun addTodo(title: String, description: String) {
         viewModelScope.launch(coroutineDispatcher) {
-            addTodosUseCase.invoke(title, description).collect { result ->
+            addTodosUseCase.addTodo(title, description).collect { result ->
                 result.fold(
                     onSuccess = {
                         _addTodoState.update {

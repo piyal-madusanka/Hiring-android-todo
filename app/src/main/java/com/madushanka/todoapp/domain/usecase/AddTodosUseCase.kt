@@ -10,7 +10,7 @@ class AddTodosUseCase @Inject constructor(
     private val repository: TodoRepository
 ) {
 
-    suspend operator fun invoke(title: String,description: String): Flow<Result<Unit>> =
+    suspend  fun addTodo(title: String,description: String): Flow<Result<Unit>> =
         repository.addTodo(title,description).map { result ->
             result.fold(
                 onSuccess = { Result.success(Unit) },

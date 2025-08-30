@@ -54,10 +54,15 @@ class MainActivity : ComponentActivity() {
                                 is TodoEvent.OnAddTodoClick -> {
                                     navController.navigate(AddEditTodoScreen(id = ""))
                                 }
+                                is TodoEvent.OnDeleteTodoClick -> {
 
-                                TodoEvent.FetchTodos -> TODO()
-                                TodoEvent.LoadMoreTodos -> TODO()
-                                is TodoEvent.OnDeleteTodoClick -> TODO()
+                                }
+                                is TodoEvent.OnTodoCheckChange -> {
+
+                                }
+                                TodoEvent.FetchTodos -> {
+                                    todoViewModel.fetchTodos()
+                                }
                             }
                         },
                         todoState = todoState

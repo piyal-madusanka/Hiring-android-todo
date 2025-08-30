@@ -36,9 +36,17 @@ val Typography = Typography(
 
 val dmSansTextStyle = TextStyle(
     fontFamily = FontFamily.SansSerif,
-    fontWeight = FontWeight.Normal, // 400
-    fontStyle = FontStyle.Normal,   // Regular
+    fontWeight = FontWeight.Normal,
+    fontStyle = FontStyle.Normal,
     fontSize = 18.sp,
-    lineHeight = 18.sp,             // 100% of font size
+    lineHeight = 18.sp,
     letterSpacing = (-0.17).sp
+)
+
+val appBarTextStyle = TextStyle(
+    fontFamily = FontFamily.SansSerif,
+    fontWeight = FontWeight.Bold,
+    fontSize = 32.sp,
+    lineHeight = 32.sp,
+    letterSpacing = (-0.41).sp
 )

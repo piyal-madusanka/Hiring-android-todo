@@ -10,6 +10,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.madushanka.todoapp.ui.theme.appBarTextStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -17,7 +18,8 @@ fun CommonTopAppBar(title: String, showIcon: Boolean = false, onClick: () -> Uni
     Surface(shadowElevation = 4.dp) {
         TopAppBar(title = {
             Text(
-                text = title
+                text = title,
+                style = appBarTextStyle
             )
         }, navigationIcon = {
             if (showIcon) {

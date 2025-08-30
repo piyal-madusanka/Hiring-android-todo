@@ -1,5 +1,6 @@
 package com.madushanka.todoapp.presentation.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -67,6 +68,7 @@ fun TodoListScreen(
         }) { padding ->
         Box(
             modifier = Modifier
+                .background(Color.White)
                 .fillMaxSize()
                 .padding(padding)
         ) {
@@ -105,6 +107,9 @@ fun TodoList(
         itemsIndexed(todos) { index, todo ->
             TodoItem(
                 todo = todo,
+                onCheckedChange = {id, isChecked ->
+                    onEvent(TodoEvent.OnTodoCheckChange(id, isChecked))
+                },
                 onTodoClicked = { onTodoClicked(index, todo) })
         }
 
