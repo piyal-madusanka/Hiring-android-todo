@@ -16,3 +16,9 @@ data class AddEditTodoScreen(
     val description: String,
     val isEdit: Boolean = false
 )
+
+@Serializable
+data class ViewTodoScreenArgs(
+    val title: String,
+    val description: String,
+)

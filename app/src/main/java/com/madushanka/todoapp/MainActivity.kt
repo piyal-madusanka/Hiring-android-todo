@@ -16,9 +16,11 @@ import com.madushanka.todoapp.presentation.events.TodoEvent
 import com.madushanka.todoapp.presentation.navigation.AddEditTodoScreen
 import com.madushanka.todoapp.presentation.navigation.SplashScreen
 import com.madushanka.todoapp.presentation.navigation.TodoListScreen
+import com.madushanka.todoapp.presentation.navigation.ViewTodoScreenArgs
 import com.madushanka.todoapp.presentation.screen.AddTodoScreen
 import com.madushanka.todoapp.presentation.screen.SplashScreen
 import com.madushanka.todoapp.presentation.screen.TodoListScreen
+import com.madushanka.todoapp.presentation.screen.ViewTodoScreen
 import com.madushanka.todoapp.presentation.viewmodel.AddEditTodoViewModel
 import com.madushanka.todoapp.presentation.viewmodel.TodoViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,7 +51,6 @@ class MainActivity : ComponentActivity() {
                     val todoState by todoViewModel.todoState.collectAsStateWithLifecycle()
 
                     TodoListScreen(
-                        navigateToTodoDetails = { index, todo -> },
                         onEvent = { todoEvent ->
                             when (todoEvent) {
                                 is TodoEvent.OnAddTodoClick -> {
@@ -87,6 +88,15 @@ class MainActivity : ComponentActivity() {
                                             title = todoEvent.todo.title,
                                             description = todoEvent.todo.description,
                                             isEdit = true
+                                        )
+                                    )
+                                }
+
+                                is TodoEvent.OnTodoClick -> {
+                                    navController.navigate(
+                                        ViewTodoScreenArgs(
+                                            title = todoEvent.todo.title,
+                                            description = todoEvent.todo.description
                                         )
                                     )
                                 }
@@ -130,6 +140,12 @@ class MainActivity : ComponentActivity() {
                     )
                 }
 
+                composable<ViewTodoScreenArgs> {
+                    val viewTodo: ViewTodoScreenArgs = it.toRoute()
+                    ViewTodoScreen(
+                        viewTodoScreen = viewTodo,
+                    )
+                }
 
             }
 

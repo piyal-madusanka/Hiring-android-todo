@@ -1,5 +1,6 @@
 package com.madushanka.todoapp.presentation.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,8 +34,7 @@ import com.madushanka.todoapp.presentation.state.TodoState
 @Composable
 fun TodoListScreen(
     todoState: TodoState,
-    onEvent: (TodoEvent) -> Unit,
-    navigateToTodoDetails: (index: Int, todo: Todo) -> Unit
+    onEvent: (TodoEvent) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -46,6 +46,7 @@ fun TodoListScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .background(color = Color.White)
                     .wrapContentHeight()
                     .padding(bottom = 50.dp),
                 verticalAlignment = Alignment.Bottom,
@@ -53,7 +54,7 @@ fun TodoListScreen(
             ) {
                 Icon(
                     modifier = Modifier
-                        .padding(end = 16.dp, bottom = 46.dp)
+                        .padding(end = 16.dp, bottom = 16.dp)
                         .clickable {
                             onEvent(TodoEvent.OnAddTodoClick)
                         },
@@ -74,11 +75,6 @@ fun TodoListScreen(
                 is TodoState.Loading -> LoadingIndicator(modifier = Modifier.fillMaxSize())
                 is TodoState.Success -> TodoList(
                     todos = (todoState).todos,
-                    onTodoClicked = { index: Int, todo: Todo ->
-                        navigateToTodoDetails(
-                            index, todo
-                        )
-                    },
                     onEvent = onEvent
                 )
 
@@ -94,7 +90,6 @@ fun TodoListScreen(
 @Composable
 fun TodoList(
     todos: List<Todo>,
-    onTodoClicked: (index: Int, todo: Todo) -> Unit,
     onEvent: (TodoEvent) -> Unit,
 ) {
 
@@ -108,15 +103,15 @@ fun TodoList(
                 onCheckedChange = { id, isChecked ->
                     onEvent(TodoEvent.OnTodoCheckChange(id, isChecked))
                 },
-                onTodoClicked = { onTodoClicked(index, todo) },
-
+                onTodoClicked = {
+                    onEvent(TodoEvent.OnTodoClick(todo))
+                },
                 onTodDeleteClicked = { id ->
                     onEvent(TodoEvent.OnDeleteTodoClick(id))
                 },
                 onTodoEditClicked = {
                     onEvent(TodoEvent.OnEditTodoClick(todo))
                 }
-
             )
         }
 
@@ -151,6 +146,6 @@ private fun TodoListScreenScreenPreview() {
                 )
             )
         ),
-        onEvent = {},
-        navigateToTodoDetails = { _, _ -> })
+        onEvent = {}
+    )
 }
