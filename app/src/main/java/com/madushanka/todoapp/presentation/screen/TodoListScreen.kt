@@ -1,6 +1,5 @@
 package com.madushanka.todoapp.presentation.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -74,7 +73,7 @@ fun TodoListScreen(
             when (todoState) {
                 is TodoState.Loading -> LoadingIndicator(modifier = Modifier.fillMaxSize())
                 is TodoState.Success -> TodoList(
-                    todos = (todoState).planets,
+                    todos = (todoState).todos,
                     onTodoClicked = { index: Int, todo: Todo ->
                         navigateToTodoDetails(
                             index, todo
@@ -131,7 +130,19 @@ fun TodoList(
 private fun TodoListScreenScreenPreview() {
     TodoListScreen(
         todoState = TodoState.Success(
-            planets = listOf(
+            todos = listOf(
+                Todo(
+                    id = 1,
+                    title = "New todo",
+                    description = "New todo description",
+                    isCompleted = false
+                ),
+                Todo(
+                    id = 1,
+                    title = "New todo",
+                    description = "New todo description",
+                    isCompleted = false
+                ),
                 Todo(
                     id = 1,
                     title = "New todo",

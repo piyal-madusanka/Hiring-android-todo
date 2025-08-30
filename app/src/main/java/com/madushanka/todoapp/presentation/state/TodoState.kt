@@ -3,6 +3,6 @@ import com.madushanka.todoapp.domain.model.Todo
 
 sealed class TodoState {
     data object Loading : TodoState()
-    data class Success(val planets: List<Todo>) : TodoState()
+    data class Success(val todos: List<Todo>) : TodoState()
     data class Error(val errorMessage: String) : TodoState()
 }

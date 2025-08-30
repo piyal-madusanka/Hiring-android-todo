@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
 
-                                TodoEvent.FetchTodos -> {
+                                is TodoEvent.FetchTodos -> {
                                     todoViewModel.fetchTodos()
                                 }
 
@@ -113,7 +113,7 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
 
-                                AddTodoEvent.OnTodoAdded -> {
+                                is AddTodoEvent.OnTodoAdded -> {
                                     navController.popBackStack()
                                 }
 
