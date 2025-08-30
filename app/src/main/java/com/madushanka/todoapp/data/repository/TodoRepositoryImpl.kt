@@ -43,5 +43,16 @@ class TodoRepositoryImpl @Inject constructor(
 
     }
 
+    override suspend fun markTodoAsCompleted(id: Int, checked: Boolean): Flow<Result<Unit>> {
+        return flow {
+            try {
+                localDataSource.markTodoAsCompleted(id, checked)
+                emit(Result.success(Unit))
+            } catch (e: LocalDataSourceException) {
+                emit(Result.failure(Exception("failed to mark todo as completed")))
+            }
+        }
+    }
+
 
 }

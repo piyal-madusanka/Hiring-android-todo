@@ -54,12 +54,18 @@ class MainActivity : ComponentActivity() {
                                 is TodoEvent.OnAddTodoClick -> {
                                     navController.navigate(AddEditTodoScreen(id = ""))
                                 }
+
                                 is TodoEvent.OnDeleteTodoClick -> {
 
                                 }
-                                is TodoEvent.OnTodoCheckChange -> {
 
+                                is TodoEvent.OnTodoCheckChange -> {
+                                    todoViewModel.markTodoAsCompleted(
+                                        id = todoEvent.id ?: return@TodoListScreen,
+                                        checked = todoEvent.check
+                                    )
                                 }
+
                                 TodoEvent.FetchTodos -> {
                                     todoViewModel.fetchTodos()
                                 }

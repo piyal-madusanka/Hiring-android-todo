@@ -3,6 +3,7 @@ package com.madushanka.todoapp.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.madushanka.todoapp.domain.usecase.GetTodosUseCase
+import com.madushanka.todoapp.presentation.state.AddTodoSate
 import com.madushanka.todoapp.presentation.state.TodoState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -44,5 +45,23 @@ class TodoViewModel @Inject constructor(
             }
         }
     }
+
+    fun markTodoAsCompleted(id: Int,checked:Boolean) {
+        viewModelScope.launch(coroutineDispatcher) {
+            getTodosUseCase.markTodoAsCompleted(id,checked).collect { result ->
+                result.fold(
+                    onSuccess = {
+                        fetchTodos()
+                    },
+                    onFailure = { error ->
+                        _todoState.update {
+                            TodoState.Error(error.message ?: "An unexpected error occurred")
+                        }
+                    }
+                )
+            }
+        }
+    }
+
 
 }

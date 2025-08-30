@@ -1,8 +1,8 @@
 package com.madushanka.todoapp.presentation.componants
 
-import android.R
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,10 +10,12 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +24,7 @@ import com.madushanka.todoapp.domain.model.Todo
 import com.madushanka.todoapp.ui.theme.CheckBoxCheck
 import com.madushanka.todoapp.ui.theme.CheckBoxUnCheck
 import com.madushanka.todoapp.ui.theme.dmSansTextStyle
+import com.madushanka.todoapp.ui.theme.dmSansTextStyleSecond
 
 
 @Composable
@@ -39,28 +42,39 @@ fun TodoItem(
             containerColor = White, contentColor = White
         ),
     ) {
-        Row(
-            modifier = Modifier.padding(start = 24.dp, top = 16.dp, bottom = 16.dp, end = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
+        Column(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Checkbox(
-                checked = todo.isCompleted,
-                onCheckedChange = {value->
-                    onCheckedChange(todo.id,value)
-                },
-                colors = CheckboxDefaults.colors(
-                    checkedColor = CheckBoxCheck,
-                    uncheckedColor = CheckBoxUnCheck
+            Row(
+                modifier = Modifier.padding(start = 24.dp, top = 16.dp, bottom = 16.dp, end = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Checkbox(
+                    checked = todo.isCompleted,
+                    onCheckedChange = { value ->
+                        onCheckedChange(todo.id, value)
+                    },
+                    colors = CheckboxDefaults.colors(
+                        checkedColor = CheckBoxCheck,
+                        uncheckedColor = CheckBoxUnCheck
+                    )
                 )
-            )
-            Text(
-                text = todo.title,
-                color = androidx.compose.ui.graphics.Color.Black,
-                style = dmSansTextStyle,
-                modifier = Modifier
-                    .padding(start = 16.dp)
-                    .fillMaxWidth()
+                Text(
+                    text = todo.title,
+                    color = androidx.compose.ui.graphics.Color.Black,
+                    style = if (todo.isCompleted)
+                        dmSansTextStyleSecond
+                    else
+                        dmSansTextStyle,
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                        .fillMaxWidth()
+                )
+            }
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = Color.LightGray
             )
         }
     }
@@ -76,7 +90,7 @@ private fun PreviewPlanetItem() {
             description = "this is todo Item",
             isCompleted = false
         ), onTodoClicked = {},
-        onCheckedChange = {_,_->
+        onCheckedChange = { _, _ ->
 
         }
     )

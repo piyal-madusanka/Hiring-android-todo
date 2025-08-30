@@ -17,4 +17,7 @@ interface TodoDao {
 
     @Query("SELECT * FROM cached_todo")
     fun getAllTodos(): Flow<List<CachedTodo>>
+
+    @Query("UPDATE cached_todo SET isCompleted = :checked WHERE id = :id")
+    fun markTodoAsCompleted(id: Int,checked: Int)
 }

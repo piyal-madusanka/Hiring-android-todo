@@ -9,4 +9,6 @@ interface TodoLocalDataSource {
     fun saveTodo(title: String,description: String)
 
     fun getTodos(): Flow<List<Todo>>
+
+    fun markTodoAsCompleted(id: Int, checked: Boolean)
 }

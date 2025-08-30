@@ -29,4 +29,13 @@ class TodoLocalDataSourceImpl @Inject constructor(
             }
         }
     }
+
+    override fun markTodoAsCompleted(id: Int, checked: Boolean) {
+        if (checked) {
+            todoDao.markTodoAsCompleted(id, 1)
+        } else {
+            todoDao.markTodoAsCompleted(id, 0)
+        }
+
+    }
 }

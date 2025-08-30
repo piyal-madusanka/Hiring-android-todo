@@ -17,4 +17,12 @@ class GetTodosUseCase @Inject constructor(
                 onFailure = { error -> Result.failure(error) }
             )
         }
+
+    suspend  fun markTodoAsCompleted(id: Int, checked: Boolean): Flow<Result<Unit>> =
+        repository.markTodoAsCompleted(id,checked).map { result ->
+            result.fold(
+                onSuccess = { Result.success(Unit) },
+                onFailure = { error -> Result.failure(error) }
+            )
+        }
 }

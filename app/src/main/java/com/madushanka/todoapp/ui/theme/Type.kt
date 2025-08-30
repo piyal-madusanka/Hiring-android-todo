@@ -5,6 +5,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 
 // Set of Material typography styles to start with
@@ -35,6 +36,16 @@ val Typography = Typography(
 )
 
 val dmSansTextStyle = TextStyle(
+    fontFamily = FontFamily.SansSerif,
+    fontWeight = FontWeight.Normal,
+    fontStyle = FontStyle.Normal,
+    fontSize = 18.sp,
+    lineHeight = 18.sp,
+    letterSpacing = (-0.17).sp
+)
+
+val dmSansTextStyleSecond = TextStyle(
+    textDecoration = TextDecoration.LineThrough,
     fontFamily = FontFamily.SansSerif,
     fontWeight = FontWeight.Normal,
     fontStyle = FontStyle.Normal,

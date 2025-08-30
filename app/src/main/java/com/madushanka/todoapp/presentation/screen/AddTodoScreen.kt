@@ -87,9 +87,9 @@ fun AddTodoScreen(
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            if (title.value.isNotEmpty() && description.value.isNotEmpty()) {
+                            if (title.value.isNotEmpty() && title.value.isNotBlank() && description.value.isNotEmpty() && description.value.isNotBlank()) {
                                 onEvent(
-                                    AddTodoEvent.AddTodo(
+                                    AddTodo(
                                         title = title.value,
                                         description = description.value
                                     )
