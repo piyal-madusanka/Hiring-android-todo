@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -51,18 +52,19 @@ fun SplashScreen(onNavigateToToDoListScreen: () -> Unit) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
+            Icon(
                 painter = painterResource(id = com.madushanka.todoapp.R.drawable.ic_launcher_foreground),
                 contentDescription = "Splash Logo",
                 modifier = Modifier
-                    .size(150.dp)
+                    .size(150.dp),
+                tint = Color.Black
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = stringResource(com.madushanka.todoapp.R.string.app_name),
-                color = Color.White,
+                color = Color.Black,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp,

@@ -40,7 +40,7 @@ fun TodoListScreen(
     Scaffold(
         topBar = {
             CommonTopAppBar(
-                title = "Todo List"
+                title = "tasked"
             )
         },
         bottomBar = {
@@ -68,9 +68,8 @@ fun TodoListScreen(
         }) { padding ->
         Box(
             modifier = Modifier
-                .background(Color.White)
                 .fillMaxSize()
-                .padding(padding)
+                .padding(bottom = padding.calculateBottomPadding())
         ) {
             when (todoState) {
                 is TodoState.Loading -> LoadingIndicator(modifier = Modifier.fillMaxSize())

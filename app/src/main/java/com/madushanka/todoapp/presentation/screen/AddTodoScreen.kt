@@ -1,11 +1,13 @@
 package com.madushanka.todoapp.presentation.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -47,16 +49,56 @@ fun AddTodoScreen(
             CommonTopAppBar(
                 title = "Add todo"
             )
+        },
+        bottomBar = {
+            Row(
+                modifier = Modifier.padding(
+                    start = 16.dp,
+                    end = 16.dp,
+                    top = 20.dp,
+                    bottom = 50.dp
+                )
+            )
+            {
+                Button(
+                    modifier = Modifier.fillMaxWidth().imePadding(),
+                    onClick = {
+                        if (title.value.isNotEmpty() && title.value.isNotBlank() && description.value.isNotEmpty() && description.value.isNotBlank()) {
+                            if (addEditTodoScreen.isEdit) {
+                                onEvent(
+                                    AddTodoEvent.EditTodo(
+                                        id = id.value,
+                                        title = title.value,
+                                        description = description.value
+                                    )
+                                )
+                            } else {
+                                onEvent(
+                                    AddTodo(
+                                        title = title.value,
+                                        description = description.value
+                                    )
+                                )
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.LightGray,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                ) { Text(if (addEditTodoScreen.isEdit) "Update Todo" else "Add todo") }
+            }
         }) { padding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
+                .padding(padding),
+            contentAlignment = Alignment.TopCenter
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding),
+                    .padding(bottom = padding.calculateBottomPadding()),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.Start
             ) {
@@ -80,43 +122,7 @@ fun AddTodoScreen(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next,
                 )
-                Row(
-                    modifier = Modifier.padding(
-                        start = 16.dp,
-                        end = 16.dp,
-                        top = 20.dp,
-                        bottom = 50.dp
-                    )
-                )
-                {
-                    Button(
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = {
-                            if (title.value.isNotEmpty() && title.value.isNotBlank() && description.value.isNotEmpty() && description.value.isNotBlank()) {
-                                if (addEditTodoScreen.isEdit) {
-                                    onEvent(
-                                        AddTodoEvent.EditTodo(
-                                            id = id.value,
-                                            title = title.value,
-                                            description = description.value
-                                        )
-                                    )
-                                } else {
-                                    onEvent(
-                                        AddTodo(
-                                            title = title.value,
-                                            description = description.value
-                                        )
-                                    )
-                                }
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.LightGray,
-                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                        ),
-                    ) { Text(if (addEditTodoScreen.isEdit) "Update Todo" else "Add todo") }
-                }
+
             }
             when (addTodoState) {
                 is AddTodoSate.Error -> ErrorMessage(
