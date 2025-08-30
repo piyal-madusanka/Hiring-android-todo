@@ -27,16 +27,21 @@ import com.madushanka.todoapp.presentation.componants.CustomEditText
 import com.madushanka.todoapp.presentation.componants.ErrorMessage
 import com.madushanka.todoapp.presentation.componants.LoadingIndicator
 import com.madushanka.todoapp.presentation.events.AddTodoEvent
-import com.madushanka.todoapp.presentation.events.AddTodoEvent.*
+import com.madushanka.todoapp.presentation.events.AddTodoEvent.AddTodo
+import com.madushanka.todoapp.presentation.events.AddTodoEvent.OnTodoAdded
+import com.madushanka.todoapp.presentation.navigation.AddEditTodoScreen
 import com.madushanka.todoapp.presentation.state.AddTodoSate
 
 @Composable
 fun AddTodoScreen(
+    addEditTodoScreen: AddEditTodoScreen,
     addTodoState: AddTodoSate,
     onEvent: (AddTodoEvent) -> Unit,
 ) {
-    val title = remember { mutableStateOf("") }
-    val description = remember { mutableStateOf("") }
+    val id = remember { mutableStateOf(addEditTodoScreen.id) }
+    val title = remember { mutableStateOf(addEditTodoScreen.title) }
+    val description = remember { mutableStateOf(addEditTodoScreen.description) }
+
     Scaffold(
         topBar = {
             CommonTopAppBar(
@@ -88,19 +93,29 @@ fun AddTodoScreen(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
                             if (title.value.isNotEmpty() && title.value.isNotBlank() && description.value.isNotEmpty() && description.value.isNotBlank()) {
-                                onEvent(
-                                    AddTodo(
-                                        title = title.value,
-                                        description = description.value
+                                if (addEditTodoScreen.isEdit) {
+                                    onEvent(
+                                        AddTodoEvent.EditTodo(
+                                            id = id.value,
+                                            title = title.value,
+                                            description = description.value
+                                        )
                                     )
-                                )
+                                } else {
+                                    onEvent(
+                                        AddTodo(
+                                            title = title.value,
+                                            description = description.value
+                                        )
+                                    )
+                                }
                             }
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.LightGray,
                             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                         ),
-                    ) { Text("Add todo") }
+                    ) { Text(if (addEditTodoScreen.isEdit) "Update Todo" else "Add todo") }
                 }
             }
             when (addTodoState) {
@@ -136,7 +151,13 @@ fun AddTodoScreen(
 private fun AddTodoListScreenPreview() {
     AddTodoScreen(
         addTodoState = AddTodoSate.Loading,
-        onEvent = {}
+        onEvent = {},
+        addEditTodoScreen = AddEditTodoScreen(
+            id = null,
+            title = "",
+            description = "",
+            isEdit = false
+        )
     )
 }
 

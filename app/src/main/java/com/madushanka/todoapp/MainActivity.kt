@@ -10,6 +10,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.madushanka.todoapp.presentation.events.AddTodoEvent
 import com.madushanka.todoapp.presentation.events.TodoEvent
 import com.madushanka.todoapp.presentation.navigation.AddEditTodoScreen
@@ -52,11 +53,20 @@ class MainActivity : ComponentActivity() {
                         onEvent = { todoEvent ->
                             when (todoEvent) {
                                 is TodoEvent.OnAddTodoClick -> {
-                                    navController.navigate(AddEditTodoScreen(id = ""))
+                                    navController.navigate(
+                                        AddEditTodoScreen(
+                                            id = null,
+                                            title = "",
+                                            description = "",
+                                            isEdit = false
+                                        )
+                                    )
                                 }
 
                                 is TodoEvent.OnDeleteTodoClick -> {
-
+                                    todoViewModel.deleteTodo(
+                                        id = todoEvent.id ?: return@TodoListScreen
+                                    )
                                 }
 
                                 is TodoEvent.OnTodoCheckChange -> {
@@ -69,6 +79,17 @@ class MainActivity : ComponentActivity() {
                                 TodoEvent.FetchTodos -> {
                                     todoViewModel.fetchTodos()
                                 }
+
+                                is TodoEvent.OnEditTodoClick -> {
+                                    navController.navigate(
+                                        AddEditTodoScreen(
+                                            id = todoEvent.todo.id,
+                                            title = todoEvent.todo.title,
+                                            description = todoEvent.todo.description,
+                                            isEdit = true
+                                        )
+                                    )
+                                }
                             }
                         },
                         todoState = todoState
@@ -76,9 +97,11 @@ class MainActivity : ComponentActivity() {
 
                 }
 
-                composable<AddEditTodoScreen> {
+                composable<AddEditTodoScreen> { backStackEntry ->
                     val addTodoViewModel: AddEditTodoViewModel = hiltViewModel()
                     val addTodoState by addTodoViewModel.addTodoState.collectAsStateWithLifecycle()
+                    val addEditTodo: AddEditTodoScreen = backStackEntry.toRoute()
+
                     AddTodoScreen(
                         addTodoState = addTodoState,
                         onEvent = { todoEvent ->
@@ -89,11 +112,21 @@ class MainActivity : ComponentActivity() {
                                         description = todoEvent.description
                                     )
                                 }
+
                                 AddTodoEvent.OnTodoAdded -> {
                                     navController.popBackStack()
                                 }
+
+                                is AddTodoEvent.EditTodo -> {
+                                    addTodoViewModel.updateTodo(
+                                        id = todoEvent.id ?: return@AddTodoScreen,
+                                        title = todoEvent.title,
+                                        description = todoEvent.description
+                                    )
+                                }
                             }
-                        }
+                        },
+                        addEditTodoScreen = addEditTodo
                     )
                 }
 

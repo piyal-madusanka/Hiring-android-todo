@@ -107,10 +107,19 @@ fun TodoList(
         itemsIndexed(todos) { index, todo ->
             TodoItem(
                 todo = todo,
-                onCheckedChange = {id, isChecked ->
+                onCheckedChange = { id, isChecked ->
                     onEvent(TodoEvent.OnTodoCheckChange(id, isChecked))
                 },
-                onTodoClicked = { onTodoClicked(index, todo) })
+                onTodoClicked = { onTodoClicked(index, todo) },
+
+                onTodDeleteClicked = { id ->
+                    onEvent(TodoEvent.OnDeleteTodoClick(id))
+                },
+                onTodoEditClicked = {
+                    onEvent(TodoEvent.OnEditTodoClick(todo))
+                }
+
+            )
         }
 
     }

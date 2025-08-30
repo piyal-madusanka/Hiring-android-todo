@@ -26,7 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madushanka.todoapp.R
 import com.madushanka.todoapp.domain.model.Todo
-import com.madushanka.todoapp.presentation.events.TodoEvent
 import com.madushanka.todoapp.ui.theme.CheckBoxCheck
 import com.madushanka.todoapp.ui.theme.CheckBoxUnCheck
 import com.madushanka.todoapp.ui.theme.dmSansTextStyle
@@ -37,6 +36,8 @@ import com.madushanka.todoapp.ui.theme.dmSansTextStyleSecond
 fun TodoItem(
     todo: Todo,
     onTodoClicked: (Todo) -> Unit,
+    onTodDeleteClicked: (Int?) -> Unit,
+    onTodoEditClicked: (Todo) -> Unit,
     onCheckedChange: (Int?, Boolean) -> Unit
 ) {
     Card(
@@ -52,7 +53,12 @@ fun TodoItem(
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
-                modifier = Modifier.padding(start = 24.dp, top = 16.dp, bottom = 16.dp, end = 16.dp),
+                modifier = Modifier.padding(
+                    start = 24.dp,
+                    top = 16.dp,
+                    bottom = 16.dp,
+                    end = 16.dp
+                ),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -86,15 +92,16 @@ fun TodoItem(
                             .fillMaxWidth()
                     )
                 }
-                Row (
+                Row(
                     modifier = Modifier.wrapContentWidth(),
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically
-                ){
+                ) {
                     Icon(
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier
+                            .padding(start = 16.dp)
                             .clickable {
-
+                                onTodoEditClicked(todo)
                             },
                         painter = painterResource(
                             id = R.drawable.ic_edit_icon
@@ -103,9 +110,10 @@ fun TodoItem(
                         contentDescription = null,
                     )
                     Icon(
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier
+                            .padding(start = 16.dp)
                             .clickable {
-
+                                onTodDeleteClicked(todo.id)
                             },
                         painter = painterResource(
                             id = R.drawable.ic_delete
@@ -135,6 +143,8 @@ private fun PreviewPlanetItem() {
         ), onTodoClicked = {},
         onCheckedChange = { _, _ ->
 
-        }
+        },
+        onTodDeleteClicked = {},
+        onTodoEditClicked = {}
     )
 }

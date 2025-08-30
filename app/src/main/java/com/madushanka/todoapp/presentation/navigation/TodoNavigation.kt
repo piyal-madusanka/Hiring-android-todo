@@ -11,5 +11,8 @@ object TodoListScreen
 
 @Serializable
 data class AddEditTodoScreen(
-    val id: String
+    val id: Int? = null,
+    val title: String,
+    val description: String,
+    val isEdit: Boolean = false
 )
