@@ -7,3 +7,9 @@ object SplashScreen
 
 @Serializable
 object TodoListScreen
+
+
+@Serializable
+data class AddEditTodoScreen(
+    val id: String
+)

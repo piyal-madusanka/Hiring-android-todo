@@ -1,5 +1,6 @@
 package com.madushanka.todoapp.presentation.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import com.madushanka.todoapp.presentation.componants.ErrorMessage
 import com.madushanka.todoapp.presentation.componants.LoadingIndicator
 import com.madushanka.todoapp.presentation.componants.TodoItem
 import com.madushanka.todoapp.presentation.events.TodoEvent
+import com.madushanka.todoapp.presentation.navigation.TodoListScreen
 import com.madushanka.todoapp.presentation.state.TodoState
 
 
@@ -44,12 +46,17 @@ fun TodoListScreen(
         bottomBar = {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth().wrapContentHeight(),
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.End
             ) {
                 Icon(
-                    modifier = Modifier.padding(end = 16.dp, bottom = 46.dp),
+                    modifier = Modifier
+                        .padding(end = 16.dp, bottom = 46.dp)
+                        .clickable {
+                            onEvent(TodoEvent.OnAddTodoClick)
+                        },
                     painter = painterResource(
                         id = R.drawable.ic_add_task
                     ),
@@ -108,7 +115,7 @@ fun TodoList(
 
 @Composable
 @Preview(showBackground = true)
-private fun PlanetsScreenPreview() {
+private fun TodoListScreenScreenPreview() {
     TodoListScreen(
         todoState = TodoState.Success(
             planets = listOf(
