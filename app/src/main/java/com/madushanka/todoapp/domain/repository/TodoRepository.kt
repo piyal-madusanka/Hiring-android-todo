@@ -8,5 +8,5 @@ interface TodoRepository {
 
    suspend fun getTodos(): Flow<Result<List<Todo>>>
 
-    suspend fun addTodo(todo: Todo): Flow<Result<Unit>>
+    suspend fun addTodo(title: String,description: String): Flow<Result<Unit>>
 }

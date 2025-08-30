@@ -27,7 +27,6 @@ import com.madushanka.todoapp.presentation.componants.ErrorMessage
 import com.madushanka.todoapp.presentation.componants.LoadingIndicator
 import com.madushanka.todoapp.presentation.componants.TodoItem
 import com.madushanka.todoapp.presentation.events.TodoEvent
-import com.madushanka.todoapp.presentation.navigation.TodoListScreen
 import com.madushanka.todoapp.presentation.state.TodoState
 
 
@@ -47,7 +46,8 @@ fun TodoListScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .wrapContentHeight()
+                    .padding(bottom = 50.dp),
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.End
             ) {

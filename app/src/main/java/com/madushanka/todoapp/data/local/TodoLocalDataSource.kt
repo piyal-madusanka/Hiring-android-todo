@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface TodoLocalDataSource {
 
-    fun saveTodo(todo: Todo)
+    fun saveTodo(title: String,description: String)
 
     fun getTodos(): Flow<List<Todo>>
 }

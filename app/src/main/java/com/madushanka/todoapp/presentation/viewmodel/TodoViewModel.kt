@@ -12,8 +12,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.onFailure
-import kotlin.onSuccess
 
 @HiltViewModel
 class TodoViewModel @Inject constructor(
@@ -29,18 +27,22 @@ class TodoViewModel @Inject constructor(
     }
 
     fun fetchTodos() {
-      viewModelScope.launch(coroutineDispatcher) {
-          getTodosUseCase().collect { result ->
-              result.onSuccess { todos ->
-                  _todoState.update {
-                      TodoState.Success(todos)
-                  }
+        viewModelScope.launch(coroutineDispatcher) {
+            getTodosUseCase().collect { result ->
+                result.onSuccess { todos ->
+                    _todoState.update {
+                        TodoState.Success(todos)
+                    }
 
-              }.onFailure { exception ->
-                  _todoState.value = TodoState.Error(exception.message ?: "An unexpected error occurred")
-              }
-          }
-      }
+                }.onFailure { exception ->
+                    _todoState.update {
+                        TodoState.Error(
+                            exception.message ?: "An unexpected error occurred"
+                        )
+                    }
+                }
+            }
+        }
     }
 
 }

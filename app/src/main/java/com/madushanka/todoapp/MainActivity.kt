@@ -10,6 +10,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.madushanka.todoapp.presentation.events.AddTodoEvent
 import com.madushanka.todoapp.presentation.events.TodoEvent
 import com.madushanka.todoapp.presentation.navigation.AddEditTodoScreen
 import com.madushanka.todoapp.presentation.navigation.SplashScreen
@@ -17,6 +18,7 @@ import com.madushanka.todoapp.presentation.navigation.TodoListScreen
 import com.madushanka.todoapp.presentation.screen.AddTodoScreen
 import com.madushanka.todoapp.presentation.screen.SplashScreen
 import com.madushanka.todoapp.presentation.screen.TodoListScreen
+import com.madushanka.todoapp.presentation.viewmodel.AddEditTodoViewModel
 import com.madushanka.todoapp.presentation.viewmodel.TodoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -64,7 +66,24 @@ class MainActivity : ComponentActivity() {
                 }
 
                 composable<AddEditTodoScreen> {
-                    AddTodoScreen()
+                    val addTodoViewModel: AddEditTodoViewModel = hiltViewModel()
+                    val addTodoState by addTodoViewModel.addTodoState.collectAsStateWithLifecycle()
+                    AddTodoScreen(
+                        addTodoState = addTodoState,
+                        onEvent = { todoEvent ->
+                            when (todoEvent) {
+                                is AddTodoEvent.AddTodo -> {
+                                    addTodoViewModel.addTodo(
+                                        title = todoEvent.title,
+                                        description = todoEvent.description
+                                    )
+                                }
+                                AddTodoEvent.OnTodoAdded -> {
+                                    navController.popBackStack()
+                                }
+                            }
+                        }
+                    )
                 }
 
 

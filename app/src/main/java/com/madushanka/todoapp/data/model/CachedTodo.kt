@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "cached_todo")
 data class CachedTodo(
-    @PrimaryKey
-    val id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
     val title: String,
     val description: String,
     val isCompleted: Boolean,

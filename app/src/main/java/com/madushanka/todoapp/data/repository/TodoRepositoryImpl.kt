@@ -33,9 +33,9 @@ class TodoRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun addTodo(todo: Todo): Flow<Result<Unit>> = flow {
+    override suspend fun addTodo(title: String,description: String): Flow<Result<Unit>> = flow {
         try {
-            localDataSource.saveTodo(todo)
+            localDataSource.saveTodo(title,description)
             emit(Result.success(Unit))
         } catch (e: LocalDataSourceException) {
             emit(Result.failure(Exception("failed to add todo")))
