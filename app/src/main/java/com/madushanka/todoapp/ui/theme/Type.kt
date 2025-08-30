@@ -3,6 +3,7 @@ package com.madushanka.todoapp.ui.theme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
@@ -31,4 +32,13 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
+)
+
+val dmSansTextStyle = TextStyle(
+    fontFamily = FontFamily.SansSerif,
+    fontWeight = FontWeight.Normal, // 400
+    fontStyle = FontStyle.Normal,   // Regular
+    fontSize = 18.sp,
+    lineHeight = 18.sp,             // 100% of font size
+    letterSpacing = (-0.17).sp
 )
