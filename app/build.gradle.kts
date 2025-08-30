@@ -20,15 +20,36 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+
+        create("release") {
+            storeFile = rootProject.file("TodoAppKey.jks")
+            storePassword = "todo@123"
+            keyPassword = "todo@123"
+            keyAlias = "todo"
+        }
+
+    }
+
+
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
+
+        debug {
+            android.buildFeatures.buildConfig = true
+            manifestPlaceholders["crashlyticsCollectionEnabled"] = "true"
+            versionNameSuffix = "-Debug"
+        }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
