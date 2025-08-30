@@ -134,6 +134,11 @@ Mention any additional setup steps or environment changes, if applicable.
 
 List any known bugs, incomplete features, or assumptions made during implementation.
 
+* UI bit different than figma
+* No unit tests yet
+* There is no input validation for empty tasks
+* there is no confirmation dialog for deleting tasks
+* there is a ime padding issue when keyboard is open add todo page
 ---
 
 ## ✅ Checklist
