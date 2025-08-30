@@ -51,6 +51,60 @@ android {
         }
 
     }
+
+    flavorDimensions += "country"
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("lk") {
+            dimension = "country"
+            versionNameSuffix = "-Lk"
+            applicationIdSuffix = ".lk"
+            resValue("string", "app_name", "LK Todo App")
+        }
+
+        create("uk") {
+            dimension = "country"
+            applicationIdSuffix = ".uk"
+            resValue("string", "app_name", "UK Todo App")
+        }
+
+        create("dev") {
+            dimension = "environment"
+            versionNameSuffix = "Dev"
+            applicationIdSuffix = ".uat"
+
+        }
+        create("staging") {
+            dimension = "environment"
+            versionNameSuffix = "Stg"
+            applicationIdSuffix = ".staging"
+
+        }
+        create("live") {
+            dimension = "environment"
+            versionNameSuffix = "Prd"
+            applicationIdSuffix = ""
+
+        }
+
+    }
+
+    sourceSets {
+        sourceSets.getByName("lk") {
+            java {
+                srcDirs("src/lk/java")
+            }
+        }
+        sourceSets.getByName("uk") {
+            java {
+                srcDirs("src/uk/java")
+            }
+        }
+
+    }
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
