@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.madushanka.todoapp.presentation.navigation.SplashScreen
 import com.madushanka.todoapp.presentation.navigation.TodoListScreen
 import com.madushanka.todoapp.presentation.screen.SplashScreen
+import com.madushanka.todoapp.presentation.screen.TodoListScreen
 import com.madushanka.todoapp.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,30 +31,20 @@ class MainActivity : ComponentActivity() {
 
                     composable<SplashScreen> {
                         SplashScreen(onNavigateToToDoListScreen = {
-//                            navController.navigate(TodoListScreen) {
-//                                popUpTo(SplashScreen) { inclusive = true }
-//                            }
+                            navController.navigate(TodoListScreen) {
+                                popUpTo(SplashScreen) { inclusive = true }
+                            }
                         })
                     }
+                    composable<TodoListScreen> {
+                        TodoListScreen(
+                            navigateToTodoDetails = { index, todo -> }
+                        )
 
+                    }
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyApplicationTheme {
-        Greeting("Android")
-    }
 }
