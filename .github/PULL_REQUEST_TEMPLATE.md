@@ -122,6 +122,7 @@ If you used AI tools (e.g. ChatGPT, GitHub Copilot, etc.), please explain:
 
 Include a link to a short screen recording (e.g. Loom or MP4) showing the app in use.
 
+https://drive.google.com/drive/folders/1ox8-PziYHEUgSPuX8QaFwqEbN-lcn8Ey?usp=sharing
 ---
 
 ## 🛠️ Setup Instructions (if different from README)
